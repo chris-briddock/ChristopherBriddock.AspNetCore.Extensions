@@ -1,0 +1,33 @@
+name: .NET
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 7.0.x
+    - name: Build & Restore
+      run: dotnet build --configuration Release src\ChristopherBriddock.AspNetCore.Extensions\ChristopherBriddock.AspNetCore.Extensions.sln -p:PackageVersion=${{ secrets.RELEASE_VERSION }}
+    - name: Publish
+      run: dotnet publish src\ChristopherBriddock.AspNetCore.Extensions\ChristopherBriddock.AspNetCore.Extensions.csproj -c Release -p:PackageVersion=${{ secrets.RELEASE_VERSION }}
+    - name: Create the package
+      run: dotnet pack --configuration Release src\ChristopherBriddock.AspNetCore.Extensions\ChristopherBriddock.AspNetCore.Extensions.csproj -p:PackageVersion=${{ secrets.RELEASE_VERSION }}
+    - name: Upload a Build Artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: ChristopherBriddock.AspNetCore.Extensions
+        path: src\ChristopherBriddock.AspNetCore.Extensions\bin\Release\net7.0\publish
+        if-no-files-found: error
+    - name: NuGet push
+      run: dotnet nuget push "src\ChristopherBriddock.AspNetCore.Extensions\bin\Release\*.nupkg" -k ${{secrets.NUGET_API_KEY}} -s https://api.nuget.org/v3/index.json --skip-duplicate

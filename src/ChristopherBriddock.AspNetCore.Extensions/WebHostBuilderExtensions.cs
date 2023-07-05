@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 
-namespace ChristopherBriddock.IdentityServer.Extensions;
+namespace ChristopherBriddock.AspNetCore.Extensions;
 
 public static class WebHostBuilderExtensions
 {
