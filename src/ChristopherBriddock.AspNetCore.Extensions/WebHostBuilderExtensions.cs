@@ -6,9 +6,9 @@ namespace ChristopherBriddock.AspNetCore.Extensions;
 public static class WebHostBuilderExtensions
 {
     /// <summary>
-    /// Adds Kestrel, and uses HTTP/3. Is backward compatible with HTTP/2 and HTTP/1
+    /// Adds Kestrel server configuration to the web host builder.
     /// </summary>
-    /// <param name="webHostBuilder"></param>
+    /// <param name="webHostBuilder">The IWebHostBuilder instance.</param>
     public static void AddKestrelConfiguration(this IWebHostBuilder webHostBuilder)
     {
         webHostBuilder.ConfigureKestrel((context, options) =>
