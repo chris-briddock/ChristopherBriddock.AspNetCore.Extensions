@@ -1,8 +1,0 @@
-version: 2
-updates:
-- package-ecosystem: nuget
-    directory: "/src/ChristopherBriddock.AspNetCore.Extensions"
-    schedule:
-        interval: daily
-        open-pull-requests-limit: 10 
-
