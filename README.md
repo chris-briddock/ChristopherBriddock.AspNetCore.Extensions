@@ -25,8 +25,13 @@ The `AddSwagger` method configures Swagger for API documentation and includes cu
 This method adds API version support to the `IServiceCollection` instance.
 
 #### Usage
-
+    
+    Program.cs:
     services.AddVersioning(majorVersion, minorVersion);
+
+    YourController.cs
+    Add this to the top of your controller class
+    [Route("api/v{version:apiVersion}")]
 
 #### Parameters
 
