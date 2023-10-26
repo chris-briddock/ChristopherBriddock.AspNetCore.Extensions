@@ -9,8 +9,11 @@ This README provides an overview of extension methods that enhance the functiona
 This method adds Swagger with custom configuration to the `IServiceCollection` instance.
 
 #### Usage
+    Replace MyNamespace.MyProduct with your namespace.
+    services.AddSwagger($"{nameof(MyNamespace.MyProduct)}.XML");
 
-    services.AddSwagger($"{Assembly.GetCallingAssembly().GetName().Name}.XML");
+    Add this line to your .csproj file.
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
 
 #### Parameters
 
