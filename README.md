@@ -10,7 +10,7 @@ This method adds Swagger with custom configuration to the `IServiceCollection` i
 
 #### Usage
 
-    services.AddSwagger();
+    services.AddSwagger($"{Assembly.GetCallingAssembly().GetName().Name}.XML");
 
 #### Parameters
 
