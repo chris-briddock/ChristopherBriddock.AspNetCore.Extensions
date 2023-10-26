@@ -1,1 +1,0 @@
-# ChristopherBriddock.AspNetCore.Extensions
