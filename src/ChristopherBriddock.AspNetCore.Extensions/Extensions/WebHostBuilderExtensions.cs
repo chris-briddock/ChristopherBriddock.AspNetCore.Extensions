@@ -9,11 +9,11 @@ public static class WebHostBuilderExtensions
     /// Adds Kestrel server configuration to the web host builder.
     /// </summary>
     /// <param name="webHostBuilder">The IWebHostBuilder instance.</param>
-    public static void AddKestrelConfiguration(this IWebHostBuilder webHostBuilder)
+    public static void AddKestrelConfiguration(this IWebHostBuilder webHostBuilder, int port)
     {
         webHostBuilder.ConfigureKestrel((context, options) =>
         {
-            options.ListenAnyIP(7181, listenOptions =>
+            options.ListenAnyIP(port, listenOptions =>
             {
                 listenOptions.Protocols = HttpProtocols.Http1AndHttp2AndHttp3;
                 listenOptions.UseHttps();
