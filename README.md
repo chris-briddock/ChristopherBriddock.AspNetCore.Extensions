@@ -10,7 +10,7 @@ This method adds Swagger with custom configuration to the `IServiceCollection` i
 
 #### Usage
     Replace MyNamespace.MyProduct with your namespace.
-    services.AddSwagger($"{nameof(MyNamespace.MyProduct)}.XML");
+    builder.Services.AddSwagger($"{typeof(Program).Namespace!}.xml");
 
     Add this line to your .csproj file.
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
