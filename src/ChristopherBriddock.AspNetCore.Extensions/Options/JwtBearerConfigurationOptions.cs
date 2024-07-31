@@ -4,7 +4,7 @@ using Microsoft.Extensions.Options;
 
 namespace ChristopherBriddock.AspNetCore.Extensions.Options;
 
-public class JwtBearerConfigurationOptions : IConfigureNamedOptions<JwtBearerOptions>
+public class JwtBearerConfigurationOptions : IConfigureOptions<JwtBearerOptions>
 {
     private IConfiguration Configuration { get; }
 
@@ -13,7 +13,6 @@ public class JwtBearerConfigurationOptions : IConfigureNamedOptions<JwtBearerOpt
     {
         Configuration = configuration;
     }
-    public void Configure(string? name, JwtBearerOptions options) => Configure(options);
 
     public void Configure(JwtBearerOptions options)
     {

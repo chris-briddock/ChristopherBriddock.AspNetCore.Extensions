@@ -18,9 +18,7 @@ public static class ConfigurationExtensions
     {
         var connectionString = configuration.GetConnectionString(name);
         if (string.IsNullOrEmpty(connectionString))
-        {
             throw new InvalidOperationException($"Connection string '{name}' not found.");
-        }
 
         return connectionString;
     }
@@ -36,9 +34,7 @@ public static class ConfigurationExtensions
     {
         var value = configuration[name];
         if (string.IsNullOrEmpty(value))
-        {
             throw new InvalidOperationException($"Value '{name}' not found.");
-        }
 
         return value;
     }
