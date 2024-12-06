@@ -37,7 +37,6 @@ public static class HostApplicationBuilderExtensions
                     options.SetSampler<AlwaysOnSampler>();
                     options.AddAspNetCoreInstrumentation();
                     options.AddHttpClientInstrumentation();
-                    options.AddSqlClientInstrumentation(o => o.SetDbStatementForText = true);
                     options.AddSource("MassTransit");
                 })
                 .WithMetrics(options =>
