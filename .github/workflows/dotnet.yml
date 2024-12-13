@@ -12,11 +12,11 @@ jobs:
     runs-on: windows-latest
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Setup .NET
-      uses: actions/setup-dotnet@v3
+      uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: 8.0.x
+        dotnet-version: 9.0.x
     - name: Build & Restore
       run: dotnet build --configuration Release src\ChristopherBriddock.AspNetCore.Extensions.sln -p:PackageVersion=${{ secrets.RELEASE_VERSION }}
     - name: Publish
@@ -24,7 +24,7 @@ jobs:
     - name: Create the package
       run: dotnet pack --configuration Release src\ChristopherBriddock.AspNetCore.Extensions\ChristopherBriddock.AspNetCore.Extensions.csproj -p:PackageVersion=${{ secrets.RELEASE_VERSION }}
     - name: Upload a Build Artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: ChristopherBriddock.AspNetCore.Extensions
         path: src\ChristopherBriddock.AspNetCore.Extensions\bin\Release\net9.0\publish
