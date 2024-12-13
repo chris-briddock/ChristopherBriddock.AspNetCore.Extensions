@@ -27,7 +27,7 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: ChristopherBriddock.AspNetCore.Extensions
-        path: src\ChristopherBriddock.AspNetCore.Extensions\bin\Release\net8.0\publish
+        path: src\ChristopherBriddock.AspNetCore.Extensions\bin\Release\net9.0\publish
         if-no-files-found: error
     - name: NuGet push
       run: dotnet nuget push "src\ChristopherBriddock.AspNetCore.Extensions\bin\Release\*.nupkg" -k ${{secrets.NUGET_API_KEY}} -s https://api.nuget.org/v3/index.json --skip-duplicate
