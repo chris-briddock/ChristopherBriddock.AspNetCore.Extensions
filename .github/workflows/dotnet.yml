@@ -8,26 +8,35 @@ on:
 
 jobs:
   build:
-
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
+    - name: Checkout code
+      uses: actions/checkout@v4
+
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 9.0.x
-    - name: Build & Restore
-      run: dotnet build --configuration Release src\ChristopherBriddock.AspNetCore.Extensions.sln -p:PackageVersion=${{ secrets.RELEASE_VERSION }}
-    - name: Publish
-      run: dotnet publish src\ChristopherBriddock.AspNetCore.Extensions\ChristopherBriddock.AspNetCore.Extensions.csproj -c Release -p:PackageVersion=${{ secrets.RELEASE_VERSION }}
-    - name: Create the package
-      run: dotnet pack --configuration Release src\ChristopherBriddock.AspNetCore.Extensions\ChristopherBriddock.AspNetCore.Extensions.csproj -p:PackageVersion=${{ secrets.RELEASE_VERSION }}
-    - name: Upload a Build Artifact
+        source-url: https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json
+
+    - name: Restore dependencies
+      run: dotnet restore src/ChristopherBriddock.AspNetCore.Extensions.sln
+
+    - name: Build
+      run: dotnet build --configuration Release --no-restore src/ChristopherBriddock.AspNetCore.Extensions.sln -p:PackageVersion=${{ secrets.RELEASE_VERSION }}
+
+    - name: Pack NuGet package
+      run: dotnet pack --configuration Release --no-build src/ChristopherBriddock.AspNetCore.Extensions/ChristopherBriddock.AspNetCore.Extensions.csproj -p:PackageVersion=${{ secrets.RELEASE_VERSION }} -o out
+
+    - name: Upload Build Artifact
       uses: actions/upload-artifact@v4
       with:
-        name: ChristopherBriddock.AspNetCore.Extensions
-        path: src\ChristopherBriddock.AspNetCore.Extensions\bin\Release\net9.0\publish
+        name: nuget-package
+        path: out/*.nupkg
         if-no-files-found: error
-    - name: NuGet push
-      run: dotnet nuget push "src\ChristopherBriddock.AspNetCore.Extensions\bin\Release\*.nupkg" -k ${{secrets.NUGET_API_KEY}} -s https://api.nuget.org/v3/index.json --skip-duplicate
+
+    - name: Push NuGet package to GitHub Packages
+      run: dotnet nuget push "out/*.nupkg" --api-key ${{ secrets.GITHUB_TOKEN }} --source "github"
+      env:
+        NUGET_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
