@@ -1,4 +1,6 @@
 
+using Microsoft.AspNetCore.Http;
+
 namespace ChristopherBriddock.AspNetCore.Extensions;
 
 /// <summary>
