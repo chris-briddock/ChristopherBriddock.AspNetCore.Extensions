@@ -12,12 +12,12 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
 
     - name: Setup .NET
-      uses: actions/setup-dotnet@v4
+      uses: actions/setup-dotnet@v5
       with:
-        dotnet-version: 9.0.x
+        dotnet-version: 10.0.x
 
     - name: Add GitHub NuGet Source
       run: dotnet nuget add source "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json" --name github --username ${{ github.actor }} --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text
@@ -32,7 +32,7 @@ jobs:
       run: dotnet pack --configuration Release --no-build src/ChristopherBriddock.AspNetCore.Extensions/ChristopherBriddock.AspNetCore.Extensions.csproj -p:PackageVersion=${{ secrets.RELEASE_VERSION }} -o out
 
     - name: Upload Build Artifact
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v5
       with:
         name: nuget-package
         path: out/*.nupkg
